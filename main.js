@@ -16,6 +16,11 @@ const GameBoard = (() => {
         gameBoardMap.set(i, "");
     }
 
+    const winConditions = () => {
+        
+    }
+
+
     const updateBoard = (marker, location) => {
         if (gameBoardMap.has(location)) {
             gameBoardMap.set(location, marker)
