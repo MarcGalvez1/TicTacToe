@@ -36,24 +36,24 @@ const GameBoard = (() => {
 })()
 
 
-const PlayerChoice = ((choice, who) => {
-    if (who === 1) {
-        const player1 = choice
-    } 
-    if (who === 2) {
-        const player2 = choice
-    }
-    
-    const getPlayer1 = () => player1;
-    const getPlayer2 = () => player2;
-    return {getPlayer1, getPlayer2}
-})()
+function PlayerChoice(marker) {
+    const player = marker;
+    const getPlayer = () => player;
+    return {getPlayer}
+}
 
-// testing
-// const testing = PlayerChoice("x", 1)
-// const testing2 = PlayerChoice("o", 2)
+const player1 = PlayerChoice("X");
+const player2 = PlayerChoice("O");
 
 GameBoard.updateBoard("X", 3);
 const currentGameBoard = GameBoard.getGameBoard();
 console.log(currentGameBoard);
+
+GameBoard.updateBoard(player1.getPlayer(), 4);
+const currentGameBoard2 = GameBoard.getGameBoard();
+console.log(currentGameBoard2);
+
+GameBoard.updateBoard(player2.getPlayer(), 5);
+const currentGameBoard3 = GameBoard.getGameBoard();
+console.log(currentGameBoard3);
 //GameBoard(testing.getPlayer1, 8)
