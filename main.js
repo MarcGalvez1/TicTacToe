@@ -1,26 +1,12 @@
 
-// create game board
-    // create an array to keep track of where anything is
-
-
-const GameBoard = ((marker) => {
+const GameBoard = (() => {
     // Game board is array inside Gameboard object  
     const gameBoardArr = [];
-    const player = marker
 
     // sets up game board
     for (let i = 0; i < 9; i++) {
         gameBoardArr.push("")
     }
-    
-    console.log(gameBoardArr)
-    const getPlayer = () => player;
-
-    const winConditions = () => {
-        
-    }
-
-
     const updateBoard = (marker, location) => {
         if (gameBoardArr[location] === "") {
             gameBoardArr[location] = marker
@@ -35,22 +21,44 @@ const GameBoard = ((marker) => {
     }
     return {
         updateBoard: updateBoard,
-        getGameBoard: getGameBoard,
-        winConditions: winConditions,
-        getPlayer: getPlayer
+        getGameBoard: getGameBoard
     }
 
-})()
+})();
+
+const Player = (marker) => {
+
+    this.marker = marker;
+
+    
+    const getMarker = () => {
+        return marker;
+    }
+    return {getMarker: getMarker}
+}
 
 const DisplayControl = (() => {
 
     const gameboardObject = GameBoard;
 })();
 
+const PlayerActionsControl = (() => {
+    
+    const player1Choice = document.getElementById("player1-form")
+    player1Choice.onsubmit = (event) => {
+        event.preventDefault();
+        let findSelected = () => {
+            let selected = document.querySelector("input[name='player1-choice']:checked").value
+            return(selected)
+        }
 
+   
+        const player1 = Player(findSelected());
+        console.log(player1.getMarker());
+    }
 
-const boardDisplay = DisplayControl
-boardDisplay.gameboardObject;
+})();
+
 
 /* const player1 = PlayerChoice("X");
 const player2 = PlayerChoice("O");

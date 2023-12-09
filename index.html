@@ -13,18 +13,22 @@
     <div class="card bg-info custom-container-size mx-auto my-2" id="player1Choice">
         <h5 class="card-header">Player 1 pick your sign</h5>
         <div class="card-body">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="player1-choice" id="X-choice">
-                <label class="form-check-label" for="X-choice">
-                  X
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="player1-choice" id="O-choice" checked>
-                <label class="form-check-label" for="O-choice">
-                  O
-                </label>
-              </div>
+            <form id="player1-form">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="player1-choice" id="X-choice" value="X">
+                    <label class="form-check-label" for="X-choice">
+                    X
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="player1-choice" id="O-choice" value="O">
+                    <label class="form-check-label" for="O-choice">
+                    O
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+
+            </form>
             <p>Remember X goes first</p>
         </div>
 
