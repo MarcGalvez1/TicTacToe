@@ -3,15 +3,16 @@
     // create an array to keep track of where anything is
 
 
-const GameBoard = (() => {
+const GameBoard = ((marker) => {
     // Game board is array inside Gameboard object  
     const gameBoardArr = [];
-   // const player = marker
+    const player = marker
 
     // sets up game board
     for (let i = 0; i < 9; i++) {
         gameBoardArr.push("")
     }
+    
     console.log(gameBoardArr)
     const getPlayer = () => player;
 
@@ -41,21 +42,14 @@ const GameBoard = (() => {
 
 })()
 
-const DOM = (() => {
+const DisplayControl = (() => {
+
     const gameboardObject = GameBoard;
-    const currBoard = gameboardObject.getGameBoard(); // Invoke the method to get the board
-
-    for(let i = 0; i < 9; i++) 
-
-    return {
-        // Display Board
-        gameboardObject: gameboardObject
-    }
 })();
 
 
 
-const boardDisplay = DOM
+const boardDisplay = DisplayControl
 boardDisplay.gameboardObject;
 
 /* const player1 = PlayerChoice("X");

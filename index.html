@@ -10,17 +10,36 @@
     <script src="main.js" defer></script>
 </head>
 <body class="bg-dark">
-    <div class='container-fluid'>
+    <div class="card bg-info custom-container-size mx-auto my-2" id="player1Choice">
+        <h5 class="card-header">Player 1 pick your sign</h5>
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="player1-choice" id="X-choice">
+                <label class="form-check-label" for="X-choice">
+                  X
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="player1-choice" id="O-choice" checked>
+                <label class="form-check-label" for="O-choice">
+                  O
+                </label>
+              </div>
+            <p>Remember X goes first</p>
+        </div>
+
+    </div>
+    <div class="container-fluid card custom-container-size">
         <div class='row'>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="0">1</div>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="1">2</div>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="2">3</div>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="3">4</div>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="4">5</div>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="5">6</div>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="6">7</div>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="7">8</div>
-            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info' id="8">9</div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="0"></div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="1"></div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="2"></div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="3"></div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="4"></div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="5"></div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="6"></div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="7"></div>
+            <div class='col-xs-12 col-md-4 col-sm-2 card bg-info custom-card-size' id="8"></div>
         </div>
     </div>
 </body>

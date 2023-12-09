@@ -1,0 +1,10 @@
+.custom-card-size {
+    height: 150px;
+    width: 150px;
+}
+.custom-container-size {
+    width: 33%;
+}
+div.container-fluid.card.custom-container-size {
+    width: 33%;
+}
