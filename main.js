@@ -2,12 +2,13 @@
 const GameBoard = (() => {
     // Game board is array inside Gameboard object  
     const gameBoardArr = [];
-
+    let isStart = true;
     // sets up game board
     for (let i = 0; i < 9; i++) {
         gameBoardArr.push("")
     }
     const updateBoard = (marker, location) => {
+        isStart = false;
         if (gameBoardArr[location] === "") {
             gameBoardArr[location] = marker
         }
@@ -15,36 +16,47 @@ const GameBoard = (() => {
             console.log("Invalid location")
         }
     }
-
     const getGameBoard = () => {
         return gameBoardArr.slice();
     }
+    const getIsStart =() => {
+        return isStart;
+    }
     return {
         updateBoard: updateBoard,
-        getGameBoard: getGameBoard
+        getGameBoard: getGameBoard,
+        getIsStart: getIsStart
     }
 
 })();
 
 
-const Player = (marker, isActive) => {
+const Player = (marker) => {
+    let isActive = false;
     const getMarker = () => {
         return marker;
     }
-
+    const updateIsActive = (isActiveInput) => {
+        isActive = isActiveInput;
+    }
     const getIsActive = () => {
         return isActive;
     }
-    return {getMarker: getMarker,
-            getIsActive: getIsActive        
+    return {
+        getMarker: getMarker,
+        updateIsActive: updateIsActive,
+        getIsActive: getIsActive        
     }
 }
 
 const PlayerActionsControl = (() => {
     
     const player1Choice = document.getElementById("player1-form");
+    const boardReference = GameBoard;
+    const isStart = boardReference.getIsStart();
     let player1
     let player2
+
     player1Choice.onsubmit = (event) => {
         event.preventDefault();
         let findSelected = () => {
@@ -56,19 +68,32 @@ const PlayerActionsControl = (() => {
 
         player1 = Player(findSelected(), false);
         if(player1.getMarker() === 'X') {
-           player2 = Player("O", false)
+           player2 = Player("O")
         } else {
-           player2 = Player("X", false)
+           player2 = Player("X")
         }
 
-        handlePlayer1()
-        handlePlayer2()
+        GetActivePlayer()
     }
 
-    ActivePlayer = () => {
-
+    const GetActivePlayer = () => {
+        if (isStart) {
+            if (player1.getMarker() === 'X') {
+                player1.updateIsActive(true)
+                console.log(player1.getIsActive())
+                return player1;
+            } else {
+                player2.updateIsActive(true)
+                console.log(player2.getIsActive())
+                return player2;
+            }
+        }
     }
+    
 
+    return {
+        GetActivePlayer: GetActivePlayer
+    }
 
 
 
