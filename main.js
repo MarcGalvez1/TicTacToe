@@ -26,25 +26,25 @@ const GameBoard = (() => {
 
 })();
 
-const Player = (marker) => {
 
-    this.marker = marker;
-
-    
+const Player = (marker, isActive) => {
     const getMarker = () => {
         return marker;
     }
-    return {getMarker: getMarker}
+
+    const getIsActive = () => {
+        return isActive;
+    }
+    return {getMarker: getMarker,
+            getIsActive: getIsActive        
+    }
 }
-
-const DisplayControl = (() => {
-
-    const gameboardObject = GameBoard;
-})();
 
 const PlayerActionsControl = (() => {
     
-    const player1Choice = document.getElementById("player1-form")
+    const player1Choice = document.getElementById("player1-form");
+    let player1
+    let player2
     player1Choice.onsubmit = (event) => {
         event.preventDefault();
         let findSelected = () => {
@@ -52,13 +52,42 @@ const PlayerActionsControl = (() => {
             return(selected)
         }
 
-   
-        const player1 = Player(findSelected());
-        console.log(player1.getMarker());
+
+
+        player1 = Player(findSelected(), false);
+        if(player1.getMarker() === 'X') {
+           player2 = Player("O", false)
+        } else {
+           player2 = Player("X", false)
+        }
+
+        handlePlayer1()
+        handlePlayer2()
     }
+
+    ActivePlayer = () => {
+
+    }
+
+
+
 
 })();
 
+
+/* const displayController = (() => {
+    const boxes = document.getElementsByClassName('box');
+    const ActivePlayer = PlayerActionsControl;
+    for (const box of boxes) {
+        box.addEventListener("click", (event) => {
+            const currActiveBox = document.getElementById(event.target.id);
+            const mark = document.createElement('p');
+            mark.textContent = PlayerActionsControl.getPlayer1();
+            currActiveBox.appendChild(mark);
+        });
+    }
+
+})(); */
 
 /* const player1 = PlayerChoice("X");
 const player2 = PlayerChoice("O");
