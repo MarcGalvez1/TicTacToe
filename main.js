@@ -40,10 +40,14 @@ const GameBoard = (() => {
             for (let j = 0; j < 2; j++ ) {
 
                 if(gameBoardArr[winningCombo[i][j]] === gameBoardArr[winningCombo[i][j + 1]]) {
+
                     matchCounter++
+                    console.log(matchCounter)
                     if (matchCounter === 3) {
                         return gameBoardArr[winningCombo[i][j]]
                     }
+
+ 
                 } else {
                     break;
                 }
@@ -63,20 +67,16 @@ const GameBoard = (() => {
 
 
 const Player = (marker) => {
-    let isActive = false;
+
     const getMarker = () => {
         return marker;
     }
     const updateIsActive = (isActiveInput) => {
         isActive = isActiveInput;
     }
-    const getIsActive = () => {
-        return isActive;
-    }
     return {
         getMarker: getMarker,
-        updateIsActive: updateIsActive,
-        getIsActive: getIsActive        
+        updateIsActive: updateIsActive,  
     }
 }
 
@@ -88,7 +88,7 @@ const PlayerActionsControl = (() => {
     let activePlayer
     let player1
     let player2
-    let isPlayerSet = false;
+
     player1Choice.onsubmit = (event) => {
         event.preventDefault();
         let findSelected = () => {
@@ -111,12 +111,8 @@ const PlayerActionsControl = (() => {
     const setActivePlayer = () => {
         if (isStart) {
             if (player1.getMarker() === 'X') {
-                player1.updateIsActive(true)
-                console.log(player1.getIsActive())
                 activePlayer = player1;
             } else {
-                player2.updateIsActive(true)
-                console.log(player2.getIsActive())
                 activePlayer = player2;
             }
         }
@@ -128,14 +124,16 @@ const PlayerActionsControl = (() => {
             activePlayer = player1;
         }
     }
+    const getActivePlayerMarker = () => {
+        return activePlayer.getMarker();
+    }
     const getActivePlayer = () => {
         return activePlayer;
     }
-
     return {
-        isPlayerSet: isPlayerSet,
         updateActivePlayer: updateActivePlayer,
-        getActivePlayer: getActivePlayer
+        getActivePlayer: getActivePlayer,
+        getActivePlayerMarker: getActivePlayerMarker
     };
 
 })();
@@ -145,7 +143,6 @@ const displayController = (() => {
     const boxes = document.getElementsByClassName('box');
     const boardArr = GameBoard
     const ActivePlayer = PlayerActionsControl;
-    console.log(ActivePlayer.isPlayerSet)
 
     for (const box of boxes) {
         box.addEventListener("click", (event) => {
