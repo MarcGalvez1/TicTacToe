@@ -22,10 +22,41 @@ const GameBoard = (() => {
     const getIsStart =() => {
         return isStart;
     }
+
+    const winningCombo = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+      ]
+
+    const checkWin = () => {
+        for (let i = 0; i < 8; i++) {
+            let matchCounter = 1;
+            for (let j = 0; j < 2; j++ ) {
+
+                if(gameBoardArr[winningCombo[i][j]] === gameBoardArr[winningCombo[i][j + 1]]) {
+                    matchCounter++
+                    if (matchCounter === 3) {
+                        return gameBoardArr[winningCombo[i][j]]
+                    }
+                } else {
+                    break;
+                }
+            
+            }
+        }
+        return "fail"
+    }
     return {
         updateBoard: updateBoard,
         getGameBoard: getGameBoard,
-        getIsStart: getIsStart
+        getIsStart: getIsStart,
+        checkWin: checkWin
     }
 
 })();
@@ -112,18 +143,24 @@ const PlayerActionsControl = (() => {
 
 const displayController = (() => {
     const boxes = document.getElementsByClassName('box');
-    
+    const boardArr = GameBoard
     const ActivePlayer = PlayerActionsControl;
     console.log(ActivePlayer.isPlayerSet)
 
     for (const box of boxes) {
         box.addEventListener("click", (event) => {
-            console.log(ActivePlayer.getActivePlayer().getMarker())
-            ActivePlayer.updateActivePlayer();
-/*             const currActiveBox = document.getElementById(event.target.id);
-            const mark = document.createElement('p');
-            mark.textContent = PlayerActionsControl.getPlayer1();
-            currActiveBox.appendChild(mark); */
+           // console.log(ActivePlayer.getActivePlayer().getMarker());
+            const currActiveBox = document.getElementById(event.target.id);
+            if (currActiveBox.childElementCount === 0) {
+                const mark = document.createElement('p');
+                mark.textContent = ActivePlayer.getActivePlayer().getMarker();
+                currActiveBox.appendChild(mark);
+                boardArr.updateBoard(ActivePlayer.getActivePlayer().getMarker(),event.target.id)
+                console.log(boardArr.getGameBoard());
+                console.log(boardArr.checkWin());
+                ActivePlayer.updateActivePlayer();
+            }
+
         });
     } 
 
