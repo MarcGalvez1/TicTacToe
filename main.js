@@ -4,6 +4,7 @@ const GameBoard = (() => {
   let isStart = true;
   let isFull = false;
   let isWin = false;
+  let winMark;
   // sets up game board
   for (let i = 0; i < 9; i++) {
     gameBoardArr.push("");
@@ -32,7 +33,6 @@ const GameBoard = (() => {
       } else {
         if (i === 8 && gameBoardArr[i] !== "") {
           isFull = true;
-          console.log(checkTie());
         }
       }
     }
@@ -54,22 +54,32 @@ const GameBoard = (() => {
       for (let j = 0; j < 2; j++) {
         if (
           gameBoardArr[winningCombo[i][j]] ===
-          gameBoardArr[winningCombo[i][j + 1]]
+            gameBoardArr[winningCombo[i][j + 1]] &&
+          (gameBoardArr[winningCombo[i][j]] !== "" ||
+            gameBoardArr[winningCombo[i][j + 1] != ""])
         ) {
           matchCounter++;
           if (matchCounter === 3) {
             isWin = true;
-            return gameBoardArr[winningCombo[i][j]];
+            winMark = gameBoardArr[winningCombo[i][j]];
+            return true;
           }
         } else {
           break;
         }
       }
     }
+    return false;
   };
+  const getWinMark = () => {
+    return winMark;
+  };
+
   const checkTie = () => {
     if (isFull && !isWin) {
-      return "Tie";
+      return true;
+    } else {
+      return false;
     }
   };
   return {
@@ -77,6 +87,8 @@ const GameBoard = (() => {
     getGameBoard: getGameBoard,
     getIsStart: getIsStart,
     checkWin: checkWin,
+    getWinMark: getWinMark,
+    checkTie: checkTie,
   };
 })();
 
@@ -168,32 +180,13 @@ const displayController = (() => {
         );
         console.log(boardArr.getGameBoard());
         console.log(boardArr.checkWin());
+        if (boardArr.checkWin() === true) {
+          console.log(boardArr.getWinMark());
+        } else {
+          console.log("is tie" + boardArr.checkTie());
+        }
         ActivePlayer.updateActivePlayer();
       }
     });
   }
 })();
-
-/* const player1 = PlayerChoice("X");
-const player2 = PlayerChoice("O");
-let currentGameBoard;
-GameBoard.updateBoard("X", 0, 1);
-currentGameBoard = GameBoard.getGameBoard();
-console.log(currentGameBoard);
-GameBoard.updateBoard("X", 1, 2);
-currentGameBoard = GameBoard.getGameBoard();
-console.log(currentGameBoard);
-GameBoard.updateBoard("X", 2, 1);
-currentGameBoard = GameBoard.getGameBoard();
-console.log(currentGameBoard); */
-
-// console.log(GameBoard.winConditions())
-
-// GameBoard.updateBoard(player1.getPlayer(), 1);
-// const currentGameBoard2 = GameBoard.getGameBoard();
-// console.log(currentGameBoard2);
-
-// GameBoard.updateBoard(player2.getPlayer(), 5);
-// const currentGameBoard3 = GameBoard.getGameBoard();
-// console.log(currentGameBoard3);
-// GameBoard(testing.getPlayer1, 8)
