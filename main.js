@@ -5,11 +5,13 @@ const GameBoard = (() => {
   let isFull = false;
   let isWin = false;
   let winMark;
-  // sets up game board
+
   for (let i = 0; i < 9; i++) {
+    // sets up game board
     gameBoardArr.push("");
   }
   const updateBoard = (marker, location) => {
+    // Update the array when players move.
     isStart = false;
 
     if (gameBoardArr[location] === "") {
@@ -20,12 +22,15 @@ const GameBoard = (() => {
     }
   };
   const getGameBoard = () => {
+    // Returns a copy of the game board array.
     return gameBoardArr.slice();
   };
   const getIsStart = () => {
+    // Get a copy of the start status of the game.
     return isStart;
   };
   const checkIsFull = () => {
+    // Used to know if  the array is full to check if the game is tied.
     for (let i = 0; i < 9; i++) {
       if (gameBoardArr[i] === "") {
         isFull = false;
@@ -39,6 +44,7 @@ const GameBoard = (() => {
   };
 
   const winningCombo = [
+    // All possible winning combinations.
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -49,15 +55,18 @@ const GameBoard = (() => {
     [2, 4, 6],
   ];
   const checkWin = () => {
+    // Checks the gameBoardArr against the winningCombo array to see if a player has won
     for (let i = 0; i < 8; i++) {
       let matchCounter = 1;
       for (let j = 0; j < 2; j++) {
         if (
+          // Checks to make sure that empty array spaces aren't counted, and that there is a match of 3 in the array.
           gameBoardArr[winningCombo[i][j]] ===
             gameBoardArr[winningCombo[i][j + 1]] &&
           (gameBoardArr[winningCombo[i][j]] !== "" ||
             gameBoardArr[winningCombo[i][j + 1] != ""])
         ) {
+          // Ensures that the array
           matchCounter++;
           if (matchCounter === 3) {
             isWin = true;
@@ -65,6 +74,7 @@ const GameBoard = (() => {
             return true;
           }
         } else {
+          // if there is no solution in the current match of 3 being checked break the inner loop
           break;
         }
       }
@@ -72,10 +82,12 @@ const GameBoard = (() => {
     return false;
   };
   const getWinMark = () => {
+    // get a copy of the winners marker
     return winMark;
   };
 
   const checkTie = () => {
+    // check for ties
     if (isFull && !isWin) {
       return true;
     } else {
@@ -93,15 +105,13 @@ const GameBoard = (() => {
 })();
 
 const Player = (marker) => {
+  // used to create player objects
   const getMarker = () => {
+    // Get a copy of the player's marker
     return marker;
-  };
-  const updateIsActive = (isActiveInput) => {
-    isActive = isActiveInput;
   };
   return {
     getMarker: getMarker,
-    updateIsActive: updateIsActive,
   };
 };
 
