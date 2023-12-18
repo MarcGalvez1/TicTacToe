@@ -116,6 +116,7 @@ const Player = (marker) => {
 };
 
 const PlayerActionsControl = (() => {
+  // Keeps track of all player moves.
   const player1Choice = document.getElementById("player1-form");
   const boardReference = GameBoard;
   const isStart = boardReference.getIsStart();
@@ -124,6 +125,7 @@ const PlayerActionsControl = (() => {
   let player2;
 
   player1Choice.onsubmit = (event) => {
+    // When player1 submits the form assign the markers to each player.
     event.preventDefault();
     let findSelected = () => {
       let selected = document.querySelector(
@@ -143,6 +145,7 @@ const PlayerActionsControl = (() => {
   };
 
   const setActivePlayer = () => {
+    // Set the active player to the player who chose X when the game starts
     if (isStart) {
       if (player1.getMarker() === "X") {
         activePlayer = player1;
@@ -152,6 +155,7 @@ const PlayerActionsControl = (() => {
     }
   };
   const updateActivePlayer = () => {
+    // update the active player when called.
     if (activePlayer.getMarker() === player1.getMarker()) {
       activePlayer = player2;
     } else {
@@ -159,9 +163,11 @@ const PlayerActionsControl = (() => {
     }
   };
   const getActivePlayerMarker = () => {
+    // get the marker of the current active player
     return activePlayer.getMarker();
   };
   const getActivePlayer = () => {
+    // get the active player object
     return activePlayer;
   };
   return {
@@ -172,13 +178,15 @@ const PlayerActionsControl = (() => {
 })();
 
 const displayController = (() => {
+  // Controls the display of the game
   const boxes = document.getElementsByClassName("box");
   const boardArr = GameBoard;
   const ActivePlayer = PlayerActionsControl;
 
   for (const box of boxes) {
+    // Adds an event listener to each box
     box.addEventListener("click", (event) => {
-      // console.log(ActivePlayer.getActivePlayer().getMarker());
+      // Ensures that each box clicked checks the win or tie status of the game, display the winner, and display each players markers
       const currActiveBox = document.getElementById(event.target.id);
       if (currActiveBox.childElementCount === 0) {
         const mark = document.createElement("p");
