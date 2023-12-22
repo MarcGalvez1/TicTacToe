@@ -104,13 +104,17 @@ const GameBoard = (() => {
   };
 })();
 
-const Player = (marker) => {
+const Player = (marker, playerTag) => {
   // used to create player objects
+  const getPlayerTag = () => {
+    return playerTag;
+  };
   const getMarker = () => {
     // Get a copy of the player's marker
     return marker;
   };
   return {
+    getPlayerTag: getPlayerTag,
     getMarker: getMarker,
   };
 };
@@ -134,11 +138,11 @@ const PlayerActionsControl = (() => {
       return selected;
     };
 
-    player1 = Player(findSelected());
+    player1 = Player(findSelected(), 1);
     if (player1.getMarker() === "X") {
-      player2 = Player("O");
+      player2 = Player("O", 2);
     } else {
-      player2 = Player("X");
+      player2 = Player("X", 2);
     }
     isPlayerSet = true;
     setActivePlayer();
@@ -182,7 +186,7 @@ const displayController = (() => {
   const boxes = document.getElementsByClassName("box");
   const boardArr = GameBoard;
   const ActivePlayer = PlayerActionsControl;
-
+  const winnerDisplay = document.getElementById("win-display");
   for (const box of boxes) {
     // Adds an event listener to each box
     box.addEventListener("click", (event) => {
@@ -199,9 +203,12 @@ const displayController = (() => {
         console.log(boardArr.getGameBoard());
         console.log(boardArr.checkWin());
         if (boardArr.checkWin() === true) {
-          console.log(boardArr.getWinMark());
+          winnerDisplay.innerText =
+            "Player " + ActivePlayer.getActivePlayer().getPlayerTag();
         } else {
-          console.log("is tie" + boardArr.checkTie());
+          if (boardArr.checkTie()) {
+            winnerDisplay.innerText = "It is a tie";
+          }
         }
         ActivePlayer.updateActivePlayer();
       }
