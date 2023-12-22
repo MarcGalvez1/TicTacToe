@@ -94,6 +94,11 @@ const GameBoard = (() => {
       return false;
     }
   };
+  const resetBoard = () => {
+    for (let i = 0; i < 9; i++) {
+      gameBoardArr[i] = "";
+    }
+  };
   return {
     updateBoard: updateBoard,
     getGameBoard: getGameBoard,
@@ -101,6 +106,7 @@ const GameBoard = (() => {
     checkWin: checkWin,
     getWinMark: getWinMark,
     checkTie: checkTie,
+    resetBoard: resetBoard,
   };
 })();
 
@@ -174,6 +180,7 @@ const PlayerActionsControl = (() => {
     // get the active player object
     return activePlayer;
   };
+
   return {
     updateActivePlayer: updateActivePlayer,
     getActivePlayer: getActivePlayer,
@@ -189,6 +196,7 @@ const displayController = (() => {
   const winnerDisplay = document.getElementById("win-display");
   const Player1ScoreDisplay = document.getElementById("player1-score");
   const Player2ScoreDisplay = document.getElementById("player2-score");
+  const resetBtn = document.getElementById("reset-btn");
   for (const box of boxes) {
     // Adds an event listener to each box
     box.addEventListener("click", (event) => {
@@ -219,14 +227,19 @@ const displayController = (() => {
 
     const changeScoreDisplay = (winner) => {
       if (winner === 1) {
-        // Assuming Player1ScoreDisplay is a div or span element
         let currScore = parseInt(Player1ScoreDisplay.innerText);
         Player1ScoreDisplay.innerText = currScore + 1;
       } else {
-        // Assuming Player2ScoreDisplay is a div or span element
         let currScore = parseInt(Player2ScoreDisplay.innerText);
         Player2ScoreDisplay.innerText = currScore + 1;
       }
     };
   }
+  resetBtn.addEventListener("click", () => {
+    boardArr.resetBoard();
+    console.log(boardArr.getGameBoard());
+    for (const box of boxes) {
+      box.innerText = "";
+    }
+  });
 })();
