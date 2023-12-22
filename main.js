@@ -187,6 +187,8 @@ const displayController = (() => {
   const boardArr = GameBoard;
   const ActivePlayer = PlayerActionsControl;
   const winnerDisplay = document.getElementById("win-display");
+  const Player1ScoreDisplay = document.getElementById("player1-score");
+  const Player2ScoreDisplay = document.getElementById("player2-score");
   for (const box of boxes) {
     // Adds an event listener to each box
     box.addEventListener("click", (event) => {
@@ -205,6 +207,7 @@ const displayController = (() => {
         if (boardArr.checkWin() === true) {
           winnerDisplay.innerText =
             "Player " + ActivePlayer.getActivePlayer().getPlayerTag();
+          changeScoreDisplay(ActivePlayer.getActivePlayer().getPlayerTag());
         } else {
           if (boardArr.checkTie()) {
             winnerDisplay.innerText = "It is a tie";
@@ -213,5 +216,17 @@ const displayController = (() => {
         ActivePlayer.updateActivePlayer();
       }
     });
+
+    const changeScoreDisplay = (winner) => {
+      if (winner === 1) {
+        // Assuming Player1ScoreDisplay is a div or span element
+        let currScore = parseInt(Player1ScoreDisplay.innerText);
+        Player1ScoreDisplay.innerText = currScore + 1;
+      } else {
+        // Assuming Player2ScoreDisplay is a div or span element
+        let currScore = parseInt(Player2ScoreDisplay.innerText);
+        Player2ScoreDisplay.innerText = currScore + 1;
+      }
+    };
   }
 })();
